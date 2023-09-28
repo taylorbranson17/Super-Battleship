@@ -26,6 +26,10 @@ _________________________________
 
 
 {Rogue AI}
+
+(Easy (Basic) Requirements)
+- Completely random shot placement
+
 (Medium (base) Requirements)
 - Hunting Behavior
 - Bracketing Behavior
