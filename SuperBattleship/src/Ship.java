@@ -1,3 +1,4 @@
+package SuperBattleship.src;
 import java.util.ArrayList;
 
 public class Ship {
