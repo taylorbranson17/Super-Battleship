@@ -1,4 +1,4 @@
-package SuperBattleship.src;
+
 abstract class Grid {
     
     protected Cell[][] grid;

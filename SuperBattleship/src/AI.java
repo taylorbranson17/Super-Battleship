@@ -1,4 +1,3 @@
-package SuperBattleship.src;
 
 public class AI implements PlayerInterface {
 
