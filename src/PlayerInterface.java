@@ -1,5 +1,3 @@
-package SuperBattleship.src;
-
 interface PlayerInterface {
     public Coord takeTurn();
     public ShotResult recieveShot();

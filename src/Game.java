@@ -1,4 +1,6 @@
-public class game(){
+import java.util.List;
+
+public class Game{
 
     // INSTANCE VARIBLES
     
@@ -7,7 +9,6 @@ public class game(){
     Player opposingPlayer;
 
     // PUBLIC METHODS
-
     public void play(){
 
     }
