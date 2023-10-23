@@ -1,4 +1,3 @@
-package SuperBattleship.src;
 import java.util.ArrayList;
 
 public class OceanGrid extends Grid {
