@@ -1,4 +1,6 @@
-public class game(){
+import java.util.List;
+
+public class Game(){
 
     // INSTANCE VARIBLES
     
