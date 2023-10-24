@@ -1,2 +1,1 @@
-# Super Battleship
- A OOP Battleship game programmed in Java. Go Team T.A.Z !
+A Code space for Super-Battleship! Go team T.A.Z!
