@@ -24,7 +24,7 @@ public class Coord {
         return this.y;
     }
 
-    private int parseRow(String value) throws Exception {
+    static int parseRow(String value) throws Exception {
         char row = value.toLowerCase().charAt(0);
         int result = Character.getNumericValue(row) - 10; // adjust for 'a' having a value of 10.
         if (result < 0 || result > 9) {
