@@ -2,6 +2,7 @@ public class Player  implements PlayerInterface{
     private String name;
     private TargetGrid targetGrid;
     private OceanGrid oceanGrid;
+   
 
     public Player(String name) {
         this.name = name;
@@ -16,28 +17,49 @@ public class Player  implements PlayerInterface{
     public ShotResult takeShot(Coord shot) {
         return oceanGrid.receiveShot(shot);
     }
-
     @Override
     public Coord takeTurn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'takeTurn'");
+        Coord shot = null;
+
+        try {
+            String input = ConsoleHelper.getInput(name + ", enter your shot coordinates (e.g., A1): ");
+            shot = new Coord(input);
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please enter valid coordinates.");
+        }
+
+        return shot;
     }
 
+
     @Override
-    public ShotResult recieveShot() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recieveShot'");
+    public ShotResult receiveShot() {
+        return oceanGrid.receiveShot(null);
     }
 
     @Override
     public void recieveShotResult() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recieveShotResult'");
+       targetGrid.receiveShotResult(null);
     }
 
+       private boolean shotIsValid(Coord shot) {
+        if (shot != null) {
+            // Check if the shot is within the valid range.
+            return true;
+        }
+        return false;
+    }
+    
     @Override
     public Boolean validateTurn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTurn'");
+        // check if the shot is valid and if it's the player's turn.
+        if (shotIsValid(shot)) {
+            return true; 
+        }
+        return false;
     }
-}
+
+ }
+
+   
+

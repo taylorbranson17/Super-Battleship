@@ -47,7 +47,7 @@ public class Ship {
         }
     }
 
-    public boolean isSunk(){
+    public  boolean isSunk(){
         return this.hitCount == this.length; 
     }
 }
