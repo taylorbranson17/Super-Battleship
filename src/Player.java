@@ -14,6 +14,9 @@ public class Player  implements PlayerInterface{
         return name;
     }
 
+    public ShotResult takeShot(Coord shot) {
+        return oceanGrid.receiveShot(shot);
+    }
     @Override
     public Coord takeTurn() {
         Coord shot = null;
