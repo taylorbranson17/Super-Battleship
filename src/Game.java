@@ -5,22 +5,18 @@ public class Game {
 
     // INSTANCE VARIBLES--------------------
 
-    List<Player> players; // The players participating in this game
-    Player currentPlayer; // The player currently making decisions
-    Player opposingPlayer; // The player opposing the one making decisions
+    List<PlayerInterface> players = new ArrayList<PlayerInterface>(); // The players participating in this game
+    int currentPlayer = 0; // The player currently making decisions
+    int opposingPlayer = 1; // The player opposing the one making decisions
 
     // PUBLIC METHODS--------------------
+    public Game(){
+        config();
+    }
 
     // Get the game moving 
     public void play(){
-
-        // Game Loop
-        while (true){
-        
-            config(); // Configure the settings of this game before jumping into it
-
-            // Turns Loop
-            while (true){
+            while (players.get(currentPlayer).validateTurn()){
 
                 // Iterate through each player, allowing them to take a turn
                 for(Player player : players){
@@ -37,13 +33,13 @@ public class Game {
                     if (this.currentPlayer.areShipsSunk() == false){ 
 
                         // The 'currentPlayer' then takes a turn...a.k.a. takes a shot.
-                        Coord shot = this.currentPlayer.takeShot(); 
+                        Coord shot = players.get(currentPlayer).takeTurn(); 
 
                         // That shot is returned, to be passed to the opposingPlayer to receive.
-                        ShotResult shotResult = this.opposingPlayer.receiveShot(shot); 
+                        ShotResult shotResult = players.get(opposingPlayer).receiveShot(shot);
 
                         // The opposingPlayer returns a ShotResult which is then passed to the currentPlayer's TargetGrid
-                        this.currentPlayer.recieveResult(shotResult); 
+                        players.get(currentPlayer).receiveShotResult(shotResult); 
 
                         // The results are printed to a 'neutral screen' where both players can see the result
                         clear(); // Clear the screen
@@ -61,6 +57,8 @@ public class Game {
                         break;
                     }
                 }
+                currentPlayer = (currentPlayer == 0)? 1:0;
+                opposingPlayer = (opposingPlayer == 1)? 0:1;
             }
 
             // Ask the player if they want to play the game again

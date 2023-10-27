@@ -10,6 +10,7 @@ public class Player  implements PlayerInterface{
         this.oceanGrid = new OceanGrid();
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -39,7 +40,7 @@ public class Player  implements PlayerInterface{
     }
 
     @Override
-    public void recieveShotResult(ShotResult result) {
+    public void receiveShotResult(ShotResult result) {
        targetGrid.receiveShotResult(result);
     }
 
