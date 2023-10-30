@@ -16,61 +16,40 @@ public class Game {
 
     // Get the game moving 
     public void play(){
-            while (players.get(currentPlayer).validateTurn()){
+        while (players.get(currentPlayer).validateTurn()){
+            // Check to make sure the chosen 'currentPlayer' still has ships to sink. 
+            ConsoleHelper.getInput("\n\n\nIt's "+players.get(opposingPlayer).getName()+"'s turn! Press [Enter] to continue >");
 
-                // Iterate through each player, allowing them to take a turn
-                for(Player player : players){
+            clear();
 
-                    // Get the current player! This feels hacky...
-                    this.currentPlayer = player;
-                    if (players.indexOf(player) == 0){
-                        this.opposingPlayer = players.get(1);
-                    } else {
-                        this.opposingPlayer = players.get(0);
-                    }
+            // The 'currentPlayer' then takes a turn...a.k.a. takes a shot.
+            Coord shot = players.get(currentPlayer).takeTurn(); 
 
-                    // Check to make sure the chosen 'currentPlayer' still has ships to sink.
-                    if (this.currentPlayer.areShipsSunk() == false){ 
+            // That shot is returned, to be passed to the opposingPlayer to receive.
+            ShotResult shotResult = players.get(opposingPlayer).receiveShot(shot);
 
-                        // The 'currentPlayer' then takes a turn...a.k.a. takes a shot.
-                        Coord shot = players.get(currentPlayer).takeTurn(); 
+            // The opposingPlayer returns a ShotResult which is then passed to the currentPlayer's TargetGrid
+            players.get(currentPlayer).receiveShotResult(shotResult); 
 
-                        // That shot is returned, to be passed to the opposingPlayer to receive.
-                        ShotResult shotResult = players.get(opposingPlayer).receiveShot(shot);
+            // The results are printed to a 'neutral screen' where both players can see the result
+            clear(); // Clear the screen
+            String currentPlayerName = this.players.get(currentPlayer).getName();
+            String opposingPlayerName = this.players.get(opposingPlayer).getName();
+            String resultOfShot = shotResult.toString();
+            String targetedCoord = shot.toString();
+            //TODO: Get/Display "sunk" results
+            System.out.println("Player " + currentPlayerName + " Fired at " + targetedCoord + "!\nand " + resultOfShot + "!"); // Spruce up in later iteration!
 
-                        // The opposingPlayer returns a ShotResult which is then passed to the currentPlayer's TargetGrid
-                        players.get(currentPlayer).receiveShotResult(shotResult); 
-
-                        // The results are printed to a 'neutral screen' where both players can see the result
-                        clear(); // Clear the screen
-                        String currentPlayerName = this.currentPlayer.getName();
-                        String opposingPlayerName = this.opposingPlayer.getName();
-                        String resultOfShot = shotResult.toString();
-                        String targetedCoord = shot.toString();
-                        //TODO: Get/Display "sunk" results
-                        ConsoleHelper.getInput("Player " + currentPlayerName + " Fired at " + targetedCoord + "!\nand " + resultOfShot + "!"); // Spruce up in later iteration!
-
-                        // After the loop, the currentPlayer & opposingPlayer are toggled/swapped, so it's the next person's turn & it starts again.
-                    } else {
-                        //If the player has no ships, the game is over. End it!
-                        System.out.println(this.currentPlayer.getName() + " has no more ships!\n" + this.opposingPlayer.getName() + "WINS!!"); // This is a placeholder and should have more pizazz. 
-                        break;
-                    }
-                }
-                currentPlayer = (currentPlayer == 0)? 1:0;
-                opposingPlayer = (opposingPlayer == 1)? 0:1;
-            }
-
-            // Ask the player if they want to play the game again
-            boolean playAgain = yesOrNoPrompt("Play again?");
-            if (playAgain == true){
-                continue;
-            } else {
-                break;
-            }
-
+            // After the loop, the currentPlayer & opposingPlayer are toggled/swapped, so it's the next person's turn & it starts again.
         }
+        currentPlayer = (currentPlayer == 0)? 1:0;
+        opposingPlayer = (opposingPlayer == 1)? 0:1;
+
+        // THIS WILL BE ITS OWN THING
+        // Ask the player if they want to play the game again
+        //boolean playAgain = yesOrNoPrompt("Play again?");
     }
+
 
     // Configure settings for the game overall
     public void config(){
@@ -108,8 +87,8 @@ public class Game {
 
         if (playerNumberResponse == "1"){ // One player, one AI
             // Create an AI player
-            AI aiPlayer = new AI("AI NAME GOES HERE");
-            this.players.add(aiPlayer); // Is this allowed? Does it count as inheritance? 
+            //AI aiPlayer = new AI("AI NAME GOES HERE");
+            //this.players.add(aiPlayer); // Is this allowed? Does it count as inheritance? 
         } else if (playerNumberResponse == "2"){ // Two players
             // Get Player 2's name (if applicable)
             String player2Name = ConsoleHelper.getInput("Player 2! Enter your name: ");
