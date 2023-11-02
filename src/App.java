@@ -1,7 +1,6 @@
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Game game = new Game();
-        game.play();
+        System.out.println("Elloooo Mate! Welcome to Jumanji!");
     }
 }

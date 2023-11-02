@@ -1,30 +1,29 @@
-public class Player  implements PlayerInterface{
+public class Player implements PlayerInterface {
     private String name;
-    private TargetGrid targetGrid;
-    private OceanGrid oceanGrid;
-   
+    private TargetGrid targetGrid = new TargetGrid();
+    private OceanGrid oceanGrid = new OceanGrid(); //overloaded constructor/instatiated here for testing, should be instantiated in config();
 
     public Player(String name) {
         this.name = name;
-        this.targetGrid = new TargetGrid();
-        this.oceanGrid = new OceanGrid();
+    /*     config(); */
     }
 
     @Override
     public String getName() {
         return name;
     }
-    
+
     @Override
     public Coord takeTurn() {
+        printBoard();
         Coord shot = null;
-        while (true){
+        while (true) {
             try {
                 String input = ConsoleHelper.getInput(name + ", enter your shot coordinates (e.g., A1): ");
                 shot = new Coord(input);
-                if(!targetGrid.isValidShot(shot)){
+                if (!targetGrid.isValidShot(shot)) {
                     throw new Exception();
-                } 
+                }
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter valid coordinates.");
@@ -33,7 +32,6 @@ public class Player  implements PlayerInterface{
         return shot;
     }
 
-
     @Override
     public ShotResult receiveShot(Coord shot) {
         return oceanGrid.receiveShot(shot);
@@ -41,15 +39,38 @@ public class Player  implements PlayerInterface{
 
     @Override
     public void receiveShotResult(ShotResult result) {
-       targetGrid.receiveShotResult(result);
+        targetGrid.receiveShotResult(result);
     }
 
     @Override
     public Boolean validateTurn() {
-       return !oceanGrid.allShipsSunk();
+        return !oceanGrid.allShipsSunk();
     }
 
- }
+    private void config() {
+        System.out.println(this.name + ", how would you like to place your ships?");
+        System.out.println("1) Automatically\n2) Manually\n");
+        while (true) {
+            String value = ConsoleHelper.getInput("Please enter your choice: ");
+            try {
+                int factDecis = Integer.valueOf(value);
+                if (factDecis > 2 || factDecis < 0) {
+                    throw new Exception();
+                } else {
+                    oceanGrid = new OceanGrid(factDecis);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("That's not a valid option, please try again.");
+            }
+        }
 
-   
+    }
 
+    //made public for testing only.
+    private void printBoard(){
+        System.out.println(oceanGrid.print() + "\n\n\n");
+        System.out.println(targetGrid.print());
+    }
+
+}

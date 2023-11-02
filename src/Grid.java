@@ -29,11 +29,13 @@ abstract class Grid {
         return boardString;
     }
 
-    protected Cell getCellatXY(int column, int row){
+    //made public ONLY FOR TESTING
+    public Cell getCellatXY(int column, int row){
         return this.grid[column][row];
     }
 
-    protected Cell getCellatXY(Coord coord){
+    //made public ONLY FOR TESTING
+    public Cell getCellatXY(Coord coord){
         return this.grid[coord.getX()][coord.getY()];
     }
 
@@ -46,5 +48,10 @@ abstract class Grid {
         }
         tempHeader += "\n----------------------------------\n";
         return tempHeader;
+    }
+
+    /*ONLY USED FOR TESTING TO ASSURE THE RIGHT NUMBER OF CELLS */
+    private Cell[][] getGrid(){
+        return this.grid;
     }
 }

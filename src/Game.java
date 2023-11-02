@@ -20,7 +20,7 @@ public class Game {
     public void play(){
         while (players.get(currentPlayer).validateTurn()){
             // Check to make sure the chosen 'currentPlayer' still has ships to sink. 
-            ConsoleHelper.getInput("\n\n\nIt's "+players.get(opposingPlayer).getName()+"'s turn! Press [Enter] to continue >");
+            ConsoleHelper.getInput("\n\n\nIt's "+players.get(currentPlayer).getName()+"'s turn! Press [Enter] to continue >");
 
             clear();
 
