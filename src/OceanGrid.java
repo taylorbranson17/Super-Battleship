@@ -6,11 +6,7 @@ public class OceanGrid extends Grid {
 
     public OceanGrid(int config) {
         super();
-/*         FactoryDecision(config); */
-    }
-
-    public OceanGrid(){
-        super();
+        FactoryDecision(config);
     }
 
     public ShotResult receiveShot(Coord shot) {
@@ -84,7 +80,7 @@ public class OceanGrid extends Grid {
 
 
 // commented out to eliminate dependency errors
-/*     private void FactoryDecision(int value) {
+    private void FactoryDecision(int value) {
         if (value == 1) {
             new AutoShipFactory(this.ships);
             placeShips();
@@ -92,10 +88,10 @@ public class OceanGrid extends Grid {
             ManualShipFactory myManFact = new ManualShipFactory(this.ships);
             for(Ship ship: this.ships){
                 System.out.println(print() + "\n");
-                myManFact.makeAShip();
+                myManFact.placeAShip(ship);
                 this.placeShips();
             }
             System.out.println(print() + "\n");
         }
-    } */
+    }
 }
