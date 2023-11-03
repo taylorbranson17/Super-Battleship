@@ -4,6 +4,7 @@ import java.util.List;
 
 public abstract class ShipFactory{
 
+    // Variables to store the ship info
     protected List<Ship> ships; 
     protected String[] shipNames = {"carrier","battleship","cruiser","submarine","destroyer"};
     protected List<Coord> totalShipCoords = new ArrayList<Coord>();
