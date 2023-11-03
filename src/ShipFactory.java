@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// This class is abstract! Can no longer be instantiated! 
 public abstract class ShipFactory{
 
     // Variables to store the ship info
@@ -16,7 +17,7 @@ public abstract class ShipFactory{
     protected abstract Direction getDirection(List<Direction> directions); // Gets/Generates a direction
 
     // Constructor
-    public ShipFactory(ArrayList<Ship> ships){
+    public ShipFactory(List<Ship> ships){
         this.ships = ships;
         genShips();
     }
