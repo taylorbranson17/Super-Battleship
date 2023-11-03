@@ -2,18 +2,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShipFactory{
+public abstract class ShipFactory{
 
     protected List<Ship> ships; 
-    protected List<Coord> totalShipCoords = new ArrayList<Coord>();
-
-    // TODO: Aren't we updating to the new ship names?
     protected String[] shipNames = {"carrier","battleship","cruiser","submarine","destroyer"};
+    protected List<Coord> totalShipCoords = new ArrayList<Coord>();
 
     protected int gridSize = 9;
 
-    public String[] getShipNames(){
-        return this.shipNames;
+    // Must override!
+    protected abstract Coord getLeadCoord();  //Gets/Generates a lead Coord
+    protected abstract Direction getDirection(List<Direction> directions); // Gets/Generates a direction
+
+    // Constructor
+    public ShipFactory(ArrayList<Ship> ships){
+        this.ships = ships;
+        genShips();
+    }
+
+    // Places a ship!
+    public void placeAShip(Ship ship){
+        Coord leadCoord = getLeadCoord();
+        List<Direction> validDirections = filterOverlap(leadCoord, ship.getLength());
+        Direction direction = getDirection(validDirections); // Will be random in Automatic and user-entered in Manual
+        List<Coord> shipCoords = genShipCoords(leadCoord, ship.getLength(), direction);
+        ship.setCoords(shipCoords); 
+        totalShipCoords.addAll(shipCoords);
     }
 
     // Returns whether the leading row/column are within bounds
@@ -63,17 +77,14 @@ public class ShipFactory{
     
     // Generate ships from an array of names
     // TODO: This is supposed to generate a list of ships with no coords, right?
-    protected List<Ship> genShips(String[] names){
-        List<Ship> generatedShips = new ArrayList<>();
-        for (String name : names){
-            generatedShips.add(new Ship(name));
+    protected void genShips(){
+        for (String name : shipNames){
+            ships.add(new Ship(name));
         }
-
-        return generatedShips;
     }
 
     // Generates a list of valid coordinates for a ship of specified 
-    protected ArrayList<Coord> genShipCoords(Coord leadCoord, int length, Direction direction) throws Exception{ 
+    protected ArrayList<Coord> genShipCoords(Coord leadCoord, int length, Direction direction){ 
 
         // Unpack the leadCoord's row/column
         int startRow = leadCoord.getY();
@@ -108,20 +119,21 @@ public class ShipFactory{
     }
 
     // Returns true if no coordinates overlap between the two lists
-    protected boolean filterOverlap(List<Coord> newCoords, List<Coord> existingCoords){
-        for (Coord coord : newCoords){
-            if (existingCoords.contains(coord)){
-                return false;
+    protected List<Direction> filterOverlap(Coord leadCoord, int length){
+
+        List<Direction> validDirections = filterDirections(leadCoord, length);
+        List<Direction> invalidDirections = new ArrayList<Direction>();
+
+        for (Direction validDirection : validDirections){
+            List<Coord> dirCoords = genShipCoords(leadCoord, length, validDirection);
+            for (Coord coord : dirCoords){
+                if (this.totalShipCoords.contains(coord)){
+                    invalidDirections.add(validDirection);
+                }
             }
         }
-        return true;
-    }
 
-    // Returns true if the coordinate specified does not overlap one in the list
-    protected boolean filterOverlap(Coord coord, List<Coord> existingCoords){
-        if (existingCoords.contains(coord)){
-            return false;
-        }
-        return true;
+        validDirections.removeAll(invalidDirections);
+        return validDirections;
     }
 }
