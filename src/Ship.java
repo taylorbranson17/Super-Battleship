@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ship {
     private String name;
@@ -19,7 +20,7 @@ public class Ship {
         hitCount++;
     }
 
-    public void setCoords(ArrayList<Coord> coords){
+    public void setCoords(List<Coord> coords){
         this.coords.addAll(coords);
     }
 

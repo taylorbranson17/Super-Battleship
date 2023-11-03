@@ -1,11 +1,11 @@
 public class Player implements PlayerInterface {
     private String name;
     private TargetGrid targetGrid = new TargetGrid();
-    private OceanGrid oceanGrid = new OceanGrid(); //overloaded constructor/instatiated here for testing, should be instantiated in config();
+    private OceanGrid oceanGrid;
 
     public Player(String name) {
         this.name = name;
-    /*     config(); */
+        config();
     }
 
     @Override
