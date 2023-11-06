@@ -39,9 +39,9 @@ public class Ship {
                 return 4;
             case "submarine":
                 return 3;
-            case "cruiser":
-                return 3;
             case "destroyer":
+                return 3;
+            case "patrol boat":
                 return 2;
             default:
                 return 5;

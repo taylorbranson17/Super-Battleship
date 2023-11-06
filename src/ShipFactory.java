@@ -7,7 +7,7 @@ public abstract class ShipFactory{
 
     // Variables to store the ship info
     protected List<Ship> ships; 
-    protected String[] shipNames = {"carrier","battleship","cruiser","submarine","destroyer"};
+    protected String[] shipNames = {"Carrier","Battleship","Patrol Boat","Submarine","Destroyer"};
     protected List<Coord> totalShipCoords = new ArrayList<Coord>();
 
     protected int gridSize = 9;
@@ -32,20 +32,8 @@ public abstract class ShipFactory{
         totalShipCoords.addAll(shipCoords);
     }
 
-    // Returns whether the leading row/column are within bounds
-    protected boolean validateLeadCoord(Coord coord){
-        int row = coord.getY();
-        int column = coord.getX();
-
-        if (row > this.gridSize || row < 0 || column > this.gridSize || column < 0){
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     // Returns a list of valid directions given the ship's leading coordinate (leadCoord) and its length
-    protected List<Direction> filterDirections(Coord leadCoord, int length){
+    protected List<Direction> filterBoardBounds(Coord leadCoord, int length){
 
         // Unpack the coordinate's row/column
         int row = leadCoord.getY();
@@ -87,31 +75,25 @@ public abstract class ShipFactory{
 
     // Generates a list of valid coordinates for a ship of specified 
     protected ArrayList<Coord> genShipCoords(Coord leadCoord, int length, Direction direction){ 
-
-        // Unpack the leadCoord's row/column
-        int startRow = leadCoord.getY();
-        int startColumn = leadCoord.getX();
-
-        int row = startRow;
-        int column = startColumn;
-
         // Create a list to store our coordinates in
         ArrayList<Coord> shipCoords = new ArrayList<Coord>();
 
         // Iterate through the length of the ship and add a new coordinate for each space
         for (int l = 0; l < length; l++){
+            int row = leadCoord.getY();
+            int column = leadCoord.getX();
             switch (direction) {
                 case N: 
-                    row = startRow-l;
+                    row -= l;
                     break;
                 case E: 
-                    column = startColumn+l;
+                    column += l;
                     break;
                 case S: 
-                    row = startRow+l;
+                    row += l;
                     break;
                 case W: 
-                    column = startColumn-l;
+                    column -= l;
                     break;
             }
             shipCoords.add(new Coord(column,row));
@@ -120,12 +102,13 @@ public abstract class ShipFactory{
         return shipCoords;
     }
 
-    // Returns true if no coordinates overlap between the two lists
-    protected List<Direction> filterOverlap(Coord leadCoord, int length){
+    public List<Direction> filterOverlap(Coord leadCoord, int length){
 
-        List<Direction> validDirections = filterDirections(leadCoord, length);
+        //filters valid directions by leadCoord's position on board.
+        List<Direction> validDirections = filterBoardBounds(leadCoord, length);
         List<Direction> invalidDirections = new ArrayList<Direction>();
-
+        //loops through directions, generating coords for the ship.
+        //if totalShipCoords contains any of them, it removes the directions from valid list.
         for (Direction validDirection : validDirections){
             List<Coord> dirCoords = genShipCoords(leadCoord, length, validDirection);
             for (Coord coord : dirCoords){

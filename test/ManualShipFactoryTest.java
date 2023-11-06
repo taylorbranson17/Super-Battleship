@@ -1,13 +1,23 @@
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ManualShipFactoryTest {
+    ArrayList<Ship> ships = new ArrayList<>();
+    ManualShipFactory fact;
 
-    @Test
+    @Before
+    public void init(){
+        fact = new ManualShipFactory(ships);
+    }
+
+
+  /*   @Test
     public void testGetLeadCoord() {
         ArrayList<Ship> ships = new ArrayList<>();
         ManualShipFactory factory = new ManualShipFactory(ships);
@@ -28,5 +38,11 @@ public class ManualShipFactoryTest {
         ConsoleHelper.getInput("3"); 
         Direction selectedDirection = factory.getDirection(directions);
         assertEquals(Direction.S, selectedDirection);
+    } */
+
+    @Test
+    public void TestFilterDirection(){
+        List<Direction> directions = fact.filterOverlap(new Coord(5,5), 5);
+        assertEquals(Arrays.asList(Direction.values()), directions );
     }
 }

@@ -78,7 +78,7 @@ public class Game {
     private void configPlayers(int value) {
         List<String> playerNames;
         switch (value) {
-            case 1:
+            case 2:
                 String playerString = ConsoleHelper
                         .getInput("Please enter the names of the players, seperated by a comma: ");
                 playerNames = formatNames(playerString);
@@ -90,7 +90,7 @@ public class Game {
                     this.players.add(new Player(playerNames.get(i)));
                 }
                 break;
-            case 2:
+            case 1:
                 String playerName = ConsoleHelper.getInput("Player, please enter your name: ");
                 playerNames = formatNames(playerName);
                 ConsoleHelper.getInput("You will now choose how to position your ships, " + playerNames.get(0)
