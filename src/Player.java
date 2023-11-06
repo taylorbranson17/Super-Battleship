@@ -69,8 +69,8 @@ public class Player implements PlayerInterface {
 
     //made public for testing only.
     private void printBoard(){
-        System.out.println(oceanGrid.print() + "\n\n\n");
-        System.out.println(targetGrid.print());
+        System.out.println(targetGrid.print() + "\n\n\n");
+        System.out.println(oceanGrid.print());
     }
 
 }
