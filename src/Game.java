@@ -36,7 +36,6 @@ public class Game {
             // The results are printed to a 'neutral screen' where both players can see the result
             clear(); // Clear the screen
             String currentPlayerName = this.players.get(currentPlayer).getName();
-            String opposingPlayerName = this.players.get(opposingPlayer).getName();
             String resultOfShot = shotResult.toString();
             String targetedCoord = shot.toString();
             //TODO: Get/Display "sunk" results
@@ -108,10 +107,10 @@ public class Game {
     }
 
     // Separate comma-delimited list of names (if necessary)
-    private void formatNames(){
+/*     private void formatNames(){
         
     }
-
+ */
     // Clear the screen!
     private void clear(){
         System.out.print("\033[H\033[2J");

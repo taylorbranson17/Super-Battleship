@@ -51,7 +51,7 @@ abstract class Grid {
     }
 
     /*ONLY USED FOR TESTING TO ASSURE THE RIGHT NUMBER OF CELLS */
-    private Cell[][] getGrid(){
+/*     private Cell[][] getGrid(){
         return this.grid;
-    }
+    } */
 }

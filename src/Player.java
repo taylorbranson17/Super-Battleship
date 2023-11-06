@@ -1,11 +1,11 @@
 public class Player implements PlayerInterface {
     private String name;
     private TargetGrid targetGrid = new TargetGrid();
-    private OceanGrid oceanGrid = new OceanGrid(); //overloaded constructor/instatiated here for testing, should be instantiated in config();
+    private OceanGrid oceanGrid;
 
     public Player(String name) {
         this.name = name;
-    /*     config(); */
+        config();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Player implements PlayerInterface {
                     throw new Exception();
                 } else {
                     oceanGrid = new OceanGrid(factDecis);
-                    break;
+                    return;
                 }
             } catch (Exception e) {
                 System.out.println("That's not a valid option, please try again.");
@@ -69,8 +69,8 @@ public class Player implements PlayerInterface {
 
     //made public for testing only.
     private void printBoard(){
-        System.out.println(oceanGrid.print() + "\n\n\n");
-        System.out.println(targetGrid.print());
+        System.out.println(targetGrid.print() + "\n\n\n");
+        System.out.println(oceanGrid.print());
     }
 
 }

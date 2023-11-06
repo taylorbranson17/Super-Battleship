@@ -13,8 +13,8 @@ public abstract class ShipFactory{
     protected int gridSize = 9;
 
     // Must override!
-    protected abstract Coord getLeadCoord();  //Gets/Generates a lead Coord
-    protected abstract Direction getDirection(List<Direction> directions); // Gets/Generates a direction
+    protected abstract Coord getLeadCoord(String shipName);  //Gets/Generates a lead Coord
+    protected abstract Direction getDirection(List<Direction> directions, String shipName); // Gets/Generates a direction
 
     // Constructor
     public ShipFactory(List<Ship> ships){
@@ -24,9 +24,9 @@ public abstract class ShipFactory{
 
     // Places a ship!
     public void placeAShip(Ship ship){
-        Coord leadCoord = getLeadCoord();
+        Coord leadCoord = getLeadCoord(ship.getName());
         List<Direction> validDirections = filterOverlap(leadCoord, ship.getLength());
-        Direction direction = getDirection(validDirections); // Will be random in Automatic and user-entered in Manual
+        Direction direction = getDirection(validDirections, ship.getName()); // Will be random in Automatic and user-entered in Manual
         List<Coord> shipCoords = genShipCoords(leadCoord, ship.getLength(), direction);
         ship.setCoords(shipCoords); 
         totalShipCoords.addAll(shipCoords);
