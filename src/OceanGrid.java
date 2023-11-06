@@ -46,52 +46,38 @@ public class OceanGrid extends Grid {
             }
         }
     }
-//Test only methods #################################################
-/*     private void testPlaceShip(Ship ship){
-        this.ships.add(ship);
-        for(Coord coord: ship.getCoords()){
-            getCellatXY(coord.getX(), coord.getY()).setShip(ship);
-        }
-    }
+    // Test only methods #################################################
+    /*
+     * private void testPlaceShip(Ship ship){
+     * this.ships.add(ship);
+     * for(Coord coord: ship.getCoords()){
+     * getCellatXY(coord.getX(), coord.getY()).setShip(ship);
+     * }
+     * }
+     * 
+     * private int getShips(){
+     * return this.ships.size();
+     * }
+     */
 
-    private int getShips(){
-        return this.ships.size();
-    } */
+    // Test only methods #################################################
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Test only methods #################################################
-    
-
-
-// commented out to eliminate dependency errors
+    // commented out to eliminate dependency errors
     private void FactoryDecision(int value) {
-        if (value == 1) {
-            new AutoFactory(this.ships);
-            placeShips();
-        } else {
-            ManualShipFactory myManFact = new ManualShipFactory(this.ships);
-            for(Ship ship: this.ships){
+        switch (value) {
+            case 1:
+                new AutoFactory(this.ships);
+                placeShips();
+                break;
+            default:
+                ManualShipFactory myManFact = new ManualShipFactory(this.ships);
+                for (Ship ship : this.ships) {
+                    System.out.println(print() + "\n");
+                    myManFact.placeAShip(ship);
+                    this.placeShips();
+                }
                 System.out.println(print() + "\n");
-                myManFact.placeAShip(ship);
-                this.placeShips();
-            }
-            System.out.println(print() + "\n");
+                break;
         }
     }
 }

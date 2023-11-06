@@ -48,23 +48,8 @@ public class Player implements PlayerInterface {
     }
 
     private void config() {
-        System.out.println(this.name + ", how would you like to place your ships?");
-        System.out.println("1) Automatically\n2) Manually\n");
-        while (true) {
-            String value = ConsoleHelper.getInput("Please enter your choice: ");
-            try {
-                int factDecis = Integer.valueOf(value);
-                if (factDecis > 2 || factDecis < 0) {
-                    throw new Exception();
-                } else {
-                    oceanGrid = new OceanGrid(factDecis);
-                    return;
-                }
-            } catch (Exception e) {
-                System.out.println("That's not a valid option, please try again.");
-            }
-        }
-
+        int shipFact = ConsoleHelper.getInputBetween("Please enter how you would like to place your ships:\n1) Manually\n2) Automatically", 0, 3, name)-1;
+        oceanGrid = new OceanGrid(shipFact);
     }
 
     //made public for testing only.
