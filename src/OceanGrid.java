@@ -47,7 +47,7 @@ public class OceanGrid extends Grid {
         }
     }
 //Test only methods #################################################
-    private void testPlaceShip(Ship ship){
+/*     private void testPlaceShip(Ship ship){
         this.ships.add(ship);
         for(Coord coord: ship.getCoords()){
             getCellatXY(coord.getX(), coord.getY()).setShip(ship);
@@ -56,7 +56,7 @@ public class OceanGrid extends Grid {
 
     private int getShips(){
         return this.ships.size();
-    }
+    } */
 
 
 

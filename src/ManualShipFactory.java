@@ -9,9 +9,9 @@ public class ManualShipFactory extends ShipFactory {
     }
 
     @Override
-    protected Coord getLeadCoord() {
+    protected Coord getLeadCoord(String shipName) {
         while (true){
-            String start_coord = ConsoleHelper.getInput("Please input starting coordinate: ");
+            String start_coord = ConsoleHelper.getInput("Please input starting coordinate for your" + shipName + ": ");
             try{
                 Coord startCoord = new Coord(start_coord);
                 return startCoord;
@@ -23,8 +23,8 @@ public class ManualShipFactory extends ShipFactory {
     }
 
     @Override
-    protected Direction getDirection(List<Direction> directions) {
-        System.out.println("Theses are the valid directions: ");
+    protected Direction getDirection(List<Direction> directions, String shipName) {
+        System.out.println("Theses are the valid directions for your " + shipName + ": ");
         for(int i=0; i<directions.size();i++){
             System.out.println(i+1+") "+directions.get(i).toString());
         }
