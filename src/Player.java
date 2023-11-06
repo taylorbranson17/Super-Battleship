@@ -58,7 +58,7 @@ public class Player implements PlayerInterface {
                     throw new Exception();
                 } else {
                     oceanGrid = new OceanGrid(factDecis);
-                    break;
+                    return;
                 }
             } catch (Exception e) {
                 System.out.println("That's not a valid option, please try again.");
