@@ -11,7 +11,7 @@ public class ManualShipFactory extends ShipFactory {
     @Override
     protected Coord getLeadCoord(String shipName) {
         while (true){
-            String start_coord = ConsoleHelper.getInput("Please input starting coordinate for your" + shipName + ": ");
+            String start_coord = ConsoleHelper.getInput("Please input starting coordinate for your " + shipName + ": ");
             try{
                 Coord startCoord = new Coord(start_coord);
                 return startCoord;
