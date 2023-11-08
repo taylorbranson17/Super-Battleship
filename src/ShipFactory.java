@@ -24,12 +24,20 @@ public abstract class ShipFactory{
 
     // Places a ship!
     public void placeAShip(Ship ship){
-        Coord leadCoord = getLeadCoord(ship.getName());
-        List<Direction> validDirections = filterOverlap(leadCoord, ship.getLength());
-        Direction direction = getDirection(validDirections, ship.getName()); // Will be random in Automatic and user-entered in Manual
-        List<Coord> shipCoords = genShipCoords(leadCoord, ship.getLength(), direction);
-        ship.setCoords(shipCoords); 
-        totalShipCoords.addAll(shipCoords);
+        while (true){
+            Coord leadCoord = getLeadCoord(ship.getName());
+            List<Direction> validDirections = filterOverlap(leadCoord, ship.getLength());
+            if (validDirections.size() > 0){
+                Direction direction = getDirection(validDirections, ship.getName()); // Will be random in Automatic and user-entered in Manual
+                List<Coord> shipCoords = genShipCoords(leadCoord, ship.getLength(), direction);
+                ship.setCoords(shipCoords); 
+                totalShipCoords.addAll(shipCoords);
+                break;
+            } else {
+                System.out.println("Position will cause an overlap! Please choose a new coordinate...");
+                continue;
+            }
+        }
     }
 
     // Returns a list of valid directions given the ship's leading coordinate (leadCoord) and its length
