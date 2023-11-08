@@ -75,13 +75,14 @@ public class OceanGrid extends Grid {
                     System.out.println(print() + "\n");
                     myManFact.placeAShip(ship);
                     this.placeShips();
+                    clear();
                 }
                 return;
         }
     }
-/* 
+
     private void clear() {
         System.out.flush();
         System.out.print("\033[H\033[2J");
-    } */
+    }
 }

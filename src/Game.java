@@ -91,6 +91,7 @@ public class Game {
                 ConsoleHelper.getInput(playerNames.get(1) + " will begin placing their ships. Hit enter when ready >");
                 clear();
                 players[1] = new Player(playerNames.get(1));
+                clear();
                 break;
                 
             case 1:

@@ -21,10 +21,14 @@ public class AutoFactory extends ShipFactory{
     // Randomly generates a random row/column for a starting coord
     @Override
     protected Coord getLeadCoord(String shipName) {
-        int randomX = random.nextInt(this.gridSize);
-        int randomY = random.nextInt(this.gridSize);
-        Coord randomCoord = new Coord(randomX,randomY);
-        return randomCoord;
+        while(true){
+            int randomX = random.nextInt(10);
+            int randomY = random.nextInt(10);
+            Coord leadCoord = new Coord(randomX,randomY);
+            if(!totalShipCoords.contains(leadCoord)){
+                return leadCoord;
+            }
+        }
     }
 
     // Randomly generates a random direction for the ship to face
