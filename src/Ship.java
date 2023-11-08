@@ -33,8 +33,7 @@ public class Ship {
     }
 
     private int setLength(String value){
-        String lowerVal = value.toLowerCase();    
-        switch (lowerVal) {
+        switch (value.toLowerCase()) {
             case "battleship":  
                 return 4;
             case "submarine":

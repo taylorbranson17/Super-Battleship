@@ -33,7 +33,7 @@ public abstract class ShipFactory{
     }
 
     // Returns a list of valid directions given the ship's leading coordinate (leadCoord) and its length
-    protected List<Direction> filterBoardBounds(Coord leadCoord, int length){
+    public List<Direction> filterBoardBounds(Coord leadCoord, int length){
 
         // Unpack the coordinate's row/column
         int row = leadCoord.getY();
@@ -43,22 +43,22 @@ public abstract class ShipFactory{
         List<Direction> validDirectionList = new ArrayList<Direction>(Arrays.asList(Direction.values()));
 
         // Check North
-        if (row - (length + 1) < 0){
+        if (row - length + 1 < 0){
             validDirectionList.remove(Direction.N);
         }
         
         // Check South
-        if (row + (length - 1) > 9){
+        if (row + length - 1 > 9){
             validDirectionList.remove(Direction.S);
         }
 
         // Check East
-        if (column + (length - 1) > 9){
+        if (column + length - 1 > 9){
             validDirectionList.remove(Direction.E);
         }
 
         // Check West
-        if (column - (length + 1) < 0){
+        if (column - length + 1 < 0){
             validDirectionList.remove(Direction.W);
         }
 

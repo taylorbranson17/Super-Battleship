@@ -16,20 +16,19 @@ public class Player implements PlayerInterface {
     @Override
     public Coord takeTurn() {
         printBoard();
-        Coord shot = null;
         while (true) {
             try {
                 String input = ConsoleHelper.getInput(name + ", enter your shot coordinates (e.g., A1): ");
-                shot = new Coord(input);
-                if (!targetGrid.isValidShot(shot)) {
+                Coord shot = new Coord(input);
+                if (targetGrid.isValidShot(shot)) {
+                    return shot;
+                } else {
                     throw new Exception();
                 }
-                break;
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter valid coordinates.");
             }
         }
-        return shot;
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Player implements PlayerInterface {
     }
 
     private void config() {
-        int shipFact = ConsoleHelper.getInputBetween("Please enter how you would like to place your ships:\n1) Manually\n2) Automatically", 0, 3, name)-1;
+        int shipFact = ConsoleHelper.getInputBetween(this.name + ",please enter how you would like to place your ships:\n1) Manually\n2) Automatically", 0, 3, name)-1;
         oceanGrid = new OceanGrid(shipFact);
     }
 
@@ -57,5 +56,4 @@ public class Player implements PlayerInterface {
         System.out.println(targetGrid.print() + "\n\n\n");
         System.out.println(oceanGrid.print());
     }
-
 }

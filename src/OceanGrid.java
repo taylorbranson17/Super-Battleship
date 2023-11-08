@@ -68,7 +68,7 @@ public class OceanGrid extends Grid {
             case 1:
                 new AutoFactory(this.ships);
                 placeShips();
-                break;
+                return;
             default:
                 ManualShipFactory myManFact = new ManualShipFactory(this.ships);
                 for (Ship ship : this.ships) {
@@ -76,8 +76,12 @@ public class OceanGrid extends Grid {
                     myManFact.placeAShip(ship);
                     this.placeShips();
                 }
-                System.out.println(print() + "\n");
-                break;
+                return;
         }
     }
+/* 
+    private void clear() {
+        System.out.flush();
+        System.out.print("\033[H\033[2J");
+    } */
 }

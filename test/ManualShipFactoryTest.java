@@ -42,7 +42,7 @@ public class ManualShipFactoryTest {
 
     @Test
     public void TestFilterDirection(){
-        List<Direction> directions = fact.filterOverlap(new Coord(5,5), 5);
+        List<Direction> directions = fact.filterBoardBounds(new Coord(5,5), 5);
         assertEquals(Arrays.asList(Direction.values()), directions );
     }
 }

@@ -9,7 +9,7 @@ public class Game {
 
     // INSTANCE VARIBLES--------------------
 
-    List<PlayerInterface> players = new ArrayList<PlayerInterface>(); // The players participating in this game
+    PlayerInterface[]players = new PlayerInterface[2]; // The players participating in this game
     int currentPlayer = 0; // The player currently making decisions
     int opposingPlayer = 1; // The player opposing the one making decisions
 
@@ -20,30 +20,29 @@ public class Game {
 
     // Get the game moving
     public void play() {
-        clear();
         System.out.println("Welcome to Super Battleship!\nMay your shots be true, and nerves hard as steel!");
         ConsoleHelper.getInput("Hit enter to launch into game >");
-        while (players.get(currentPlayer).validateTurn()) {
+        while (players[currentPlayer].validateTurn()) {
             // Check to make sure the chosen 'currentPlayer' still has ships to sink.
             ConsoleHelper.getInput(
-                    "\n\n\nIt's " + players.get(currentPlayer).getName() + "'s turn! Press [Enter] to continue >");
+                    "\n\n\nIt's " + players[currentPlayer].getName() + "'s turn! Press [Enter] to continue >");
 
             clear();
 
             // The 'currentPlayer' then takes a turn...a.k.a. takes a shot.
-            Coord shot = players.get(currentPlayer).takeTurn();
+            Coord shot = players[currentPlayer].takeTurn();
 
             // That shot is returned, to be passed to the opposingPlayer to receive.
-            ShotResult shotResult = players.get(opposingPlayer).receiveShot(shot);
+            ShotResult shotResult = players[opposingPlayer].receiveShot(shot);
 
             // The opposingPlayer returns a ShotResult which is then passed to the
             // currentPlayer's TargetGrid
-            players.get(currentPlayer).receiveShotResult(shotResult);
+            players[currentPlayer].receiveShotResult(shotResult);
 
             // The results are printed to a 'neutral screen' where both players can see the
             // result
             clear(); // Clear the screen
-            String currentPlayerName = this.players.get(currentPlayer).getName();
+            String currentPlayerName = this.players[currentPlayer].getName();
             // print out result to neutral screen.
             System.out.println(
                     "Player " + currentPlayerName + " Fired at " + shot.toString() + "!\nand " + shotResult.toString()
@@ -69,6 +68,7 @@ public class Game {
                 "Please enter your choice of opponent:\n1) AIPlayer\n2) Another human", 0, 3,
                 "Invalid option, please try again.");
         configPlayers(configChoice);
+        clear();
     }
 
     // PRIVATE METHODS--------------------
@@ -83,21 +83,24 @@ public class Game {
                         .getInput("Please enter the names of the players, seperated by a comma: ");
                 playerNames = formatNames(playerString);
                 clear();
-                ConsoleHelper.getInput("You will now choose how to position your ships. " + playerNames.get(0)
-                        + " will begin- hit enter when ready >");
+                System.out.println("You will now choose how to position your ships. ");
+                ConsoleHelper.getInput(playerNames.get(0) + " will begin placing their ships. Hit enter when ready >");
                 clear();
-                for (int i = 0; i < 2; i++) {
-                    this.players.add(new Player(playerNames.get(i)));
-                }
+                players[0] = new Player(playerNames.get(0));
+                clear();
+                ConsoleHelper.getInput(playerNames.get(1) + " will begin placing their ships. Hit enter when ready >");
+                clear();
+                players[1] = new Player(playerNames.get(1));
                 break;
+                
             case 1:
                 String playerName = ConsoleHelper.getInput("Player, please enter your name: ");
                 playerNames = formatNames(playerName);
                 ConsoleHelper.getInput("You will now choose how to position your ships, " + playerNames.get(0)
                         + ". Hit enter to begin >");
                 clear();
-                this.players.add(new Player(playerNames.get(0)));
-                this.players.add(new EasyAI());
+                this.players[0] = new Player(playerNames.get(0));
+                this.players[1] = new EasyAI();
                 break;
         }
     }
@@ -113,12 +116,11 @@ public class Game {
     private List<String> formatNames(String nameString) {
         List<String> names = Arrays.asList(nameString.split(","));
         return names.stream()
-                .map(name -> name.toLowerCase())
+                .map(name -> name.trim().toLowerCase())
                 .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1))
                 .collect(Collectors.toList());
     }
 
-    // Clear the screen!
     private void clear() {
         System.out.print("\033[H\033[2J");
     }
