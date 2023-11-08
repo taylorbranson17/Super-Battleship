@@ -14,7 +14,11 @@ public class ManualShipFactory extends ShipFactory {
             String start_coord = ConsoleHelper.getInput("Please input starting coordinate for your " + shipName + ": ");
             try{
                 Coord startCoord = new Coord(start_coord);
-                return startCoord;
+                if(!totalShipCoords.contains(startCoord)){
+                    return startCoord;
+                } else {
+                    throw new Exception();
+                }
             }catch(Exception e){
                 System.out.println("Please enter valid coordinate. ");
             }
