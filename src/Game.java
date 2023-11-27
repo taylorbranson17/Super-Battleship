@@ -109,7 +109,7 @@ public class Game {
     // Shows a tutorial on how to play the game
     private void tutorialOption() {
         // Print out... like... tutorial stuff, man
-        System.out.println("Tutorial under construction, sorry!");
+        new Tutorial();
     }
 
     // Separate comma-delimited list of names (if necessary)
