@@ -1,6 +1,12 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import Common.Coord;
+import Common.ShotResult;
+import Grids.Cell;
+import Grids.CellState;
+import Grids.TargetGrid;
+
 
 //A test for the specialty functions within a target Grid. Doesn't contain general grid testing, besides Cell initialization.
 public class TargetGridTest {
@@ -53,5 +59,32 @@ public class TargetGridTest {
         //Craft new shot on same coordinate...
         Coord shotCoord2 = new Coord(3, 2);
         assertFalse(tGrid.isValidShot(shotCoord2));
+    }
+
+        @Test
+    public void TestReceiveShot(){
+        Coord coord = new Coord(0,0);
+        ShotResult result = ShotResult.HIT;
+        result.setCoord(coord);
+        tGrid.receiveShotResult(result);
+        assertEquals(CellState.HIT, tGrid.getCellatXY(0, 0).getState());
+    }
+
+    @Test
+    public void TestisValidShot() throws Exception{
+        Shot testShot = new Shot("A7");
+        assertEquals(true, tGrid.isValidShot(testShot));
+    }
+
+    @Test
+    public void TestPreviouslyTakenShot() throws Exception{
+        ShotResult result = ShotResult.MISS;
+        result.setCoord(new Coord(0,0));
+        //create new ShotResult at 'A1', or [0,0]
+        tGrid.receiveShotResult(result);
+        //craft new shot at same coord.
+        Shot sameShot = new Shot("A1");
+        //should return false since shot has already been taken & marked.
+        assertEquals(false, tGrid.isValidShot(sameShot));
     }
 }

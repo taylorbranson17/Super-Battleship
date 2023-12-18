@@ -1,4 +1,4 @@
-/* import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,4 +43,3 @@ public class PlayerTest {
         assertFalse(player.validateTurn());
     }
 }
- */
